@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jupiter Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: #ffd700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card-box,
+    .register-card {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 100px;
+      background-color: #111;
+      border: 1px solid #ffd700;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .register-card {
+      border: 2px dashed #ffd700;
+      background: transparent;
+      color: #ffd700;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-box {
+      height: 120px;
+      border-radius: 10px;
+      border: 1px solid #ffd700;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .service-box:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Profile Top-Left -->
+    <div class="profile" onclick="goToProfile()">
+      <img id="userImage" src="img/default-avatar.png" alt="Profile" />
+      <span id="username">Welcome, User</span>
+    </div>
+
+    <!-- Card Carousel -->
+    <div class="carousel" id="cardCarousel"></div>
+
+    <!-- Services Section -->
+    <h2>Available Services</h2>
+    <div class="services-grid">
+      <div class="service-box" style="background-image: url('images/spotify.png');"></div>
+      <div class="service-box" style="background-image: url('images/netflix.png');"></div>
+      <div class="service-box" style="background-image: url('images/prime.png');"></div>
+      <div class="service-box" style="background-image: url('images/youtube.png');"></div>
+      <div class="service-box" style="background-image: url('images/snapchat.png');"></div>
+      <div class="service-box" style="background-image: url('images/decoder.png');"></div>
+      <div class="service-box" style="background-image: url('images/airtime.png');"></div>
+      <div class="service-box" style="background-image: url('images/data.png');"></div>
+    </div>
+  </div>
+
+  <script>
+    const loggedInUser = {
+      username: "jupiteruser",
+      image: "img/default-avatar.png",
+      cards: [] // Replace with actual card data if any
+    };
+
+    document.getElementById("username").textContent = `Welcome, ${loggedInUser.username}`;
+    document.getElementById("userImage").src = loggedInUser.image;
+
+    const cardCarousel = document.getElementById("cardCarousel");
+
+    if (loggedInUser.cards.length > 0) {
+      loggedInUser.cards.forEach(card => {
+        const cardEl = document.createElement("div");
+        cardEl.className = "card-box";
+        cardEl.innerHTML = `
+          <p>${card.type} - **** ${card.number.slice(-4)}</p>
+          <p>${card.bank}</p>
+        `;
+        cardCarousel.appendChild(cardEl);
+      });
+    } else {
+      const registerBtn = document.createElement("a");
+      registerBtn.href = "/register-card.html";
+      registerBtn.className = "register-card";
+      registerBtn.textContent = "+ Register Card";
+      cardCarousel.appendChild(registerBtn);
+    }
+
+    function goToProfile() {
+      window.location.href = "/profile.html";
+    }
+  </script>
+</body>
+</html>
