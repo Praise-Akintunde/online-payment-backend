@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const mysql = require('mysql2');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = 3000;
@@ -17,13 +18,22 @@ const db = mysql.createPool({
   database: 'jupiter_db'
 });
 
+// Nodemailer config
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'jupiter.app.noreply1@gmail.com',
+    pass: 'spaqmprpuobliymj'
+  }
+});
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
+// Static routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'landing.html'));
 });
@@ -44,8 +54,8 @@ app.get('/reset', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'reset.html'));
 });
 
-// Optional redirect if someone hits /forgot-password.html by mistake
-app.get('/forgot-password.html', (req, res) => {
+// Optional redirect if someone hits /forgot.html by mistake
+app.get('/forgot.html', (req, res) => {
   res.redirect('/forgot');
 });
 
@@ -97,13 +107,45 @@ app.post('/forgot', (req, res) => {
 
   const updateQuery = 'UPDATE users SET reset_code = ? WHERE email = ?';
   db.query(updateQuery, [code, email], (err, result) => {
-    if (err) return res.status(500).send('Server error');
-    if (result.affectedRows === 0) return res.status(404).send('Email not found');
+    if (err) {
+      console.error('DB Update Error:', err); // Add this
+      return res.status(500).send('Server error');
+    }
+
+    if (result.affectedRows === 0) {
+      console.log('Email not found:', email); // Add this
+      return res.status(404).send('Email not found');
+    }
 
     console.log(`🔐 Reset code for ${email}: ${code}`);
-    res.send(`Reset code sent to your email (for now, check console): ${code}`);
+
+    // Send email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'jupiter.app.noreply1@gmail.com',
+        pass: 'spaqmprpuobliymj'
+      }
+    });
+
+    const mailOptions = {
+      from: 'jupiter.app.noreply1@gmail.com',
+      to: email,
+      subject: 'Your Jupiter Reset Code',
+      text: `Your reset code is: ${code}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Mail Error:', error); // Add this
+        return res.status(500).send('Error sending email');
+      }
+      console.log('Email sent:', info.response);
+      res.send('Reset code sent to your email');
+    });
   });
 });
+
 
 // Reset password logic
 app.post('/reset', async (req, res) => {
@@ -117,10 +159,9 @@ app.post('/reset', async (req, res) => {
 
     try {
       const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-      const updateQuery = 'UPDATE users SET password = ?, reset_code = NULL WHERE email = ?';
-      db.query(updateQuery, [hashedNewPassword, email], (err, result) => {
+      db.query('UPDATE users SET password = ?, reset_code = NULL WHERE email = ?', [hashedNewPassword, email], (err, result) => {
         if (err) return res.status(500).send('Could not reset password');
-        res.send('Password reset successfully');
+        res.status(200).send('Password reset successfully');
       });
     } catch (err) {
       console.error('Hash error:', err);

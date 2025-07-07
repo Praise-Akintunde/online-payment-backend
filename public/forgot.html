@@ -96,8 +96,8 @@
 <body>
   <div class="form-container">
     <h2>Forgot Password</h2>
-    <form onsubmit="return requestReset()">
-      <input type="email" id="email" placeholder="Enter your email" />
+    <form id="forgot-form">
+      <input type="email" id="email" placeholder="Enter your email" required />
       <button type="submit">Send Reset Code</button>
       <p id="msg"></p>
     </form>
@@ -109,42 +109,42 @@
       if (savedEmail) {
         document.getElementById('email').value = savedEmail;
       }
-    });
 
-    async function requestReset() {
-      const email = document.getElementById('email').value.trim();
-      const msg = document.getElementById('msg');
+      document.getElementById('forgot-form').addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent page reload
 
-      if (!email) {
-        msg.innerText = "⚠️ Please enter your email.";
-        msg.style.color = "red";
-        return false;
-      }
+        const email = document.getElementById('email').value.trim();
+        const msg = document.getElementById('msg');
 
-      try {
-        const res = await fetch('/forgot', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-
-        const text = await res.text();
-        msg.innerText = res.ok ? `✅ ${text}` : `❌ ${text}`;
-        msg.style.color = res.ok ? "#FFD700" : "red";
-
-        if (res.ok) {
-          sessionStorage.setItem('forgotEmail', email);
-          setTimeout(() => {
-            window.location.href = '/reset';
-          }, 2500);
+        if (!email) {
+          msg.innerText = "⚠️ Please enter your email.";
+          msg.style.color = "red";
+          return;
         }
-      } catch (error) {
-        msg.innerText = "❌ Failed to send reset code. Please try again.";
-        msg.style.color = "red";
-      }
 
-      return false; // prevent form from submitting normally
-    }
+        try {
+          const res = await fetch('/forgot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+
+          const text = await res.text();
+          msg.innerText = res.ok ? `✅ ${text}` : `❌ ${text}`;
+          msg.style.color = res.ok ? "#FFD700" : "red";
+
+          if (res.ok) {
+            sessionStorage.setItem('forgotEmail', email);
+            setTimeout(() => {
+              window.location.href = '/reset.html';
+            }, 2500);
+          }
+        } catch (error) {
+          msg.innerText = "❌ Failed to send reset code. Please try again.";
+          msg.style.color = "red";
+        }
+      });
+    });
   </script>
 </body>
 </html>
