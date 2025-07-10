@@ -3,155 +3,371 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jupiter Dashboard</title>
+  <title>Home - Jupiter</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: #ffd700;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1rem;
-    }
-
-    .profile img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      padding: 1rem 0;
-      margin-bottom: 2rem;
-    }
-
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .card-box,
-    .register-card {
-      flex: 0 0 auto;
-      width: 200px;
-      height: 100px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #111;
-      border: 1px solid #ffd700;
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
+      color: #fff;
+    }
+
+    .home-container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card-carousel {
+      background-color: transparent;
+      margin:0px 500px 30px 20px;
+      position: relative;
+      display:grid;
+    }
+
+    .card {
+      background-color: #013220;
+      border-radius: 15px;
+      padding: 10px ;
+      position: relative;
+      color: #fff;
+    }
+
+    .card-header {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: top;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .register-card {
-      border: 2px dashed #ffd700;
-      background: transparent;
-      color: #ffd700;
-      font-weight: bold;
-      text-decoration: none;
+    .profile-pic {
+      width: 40px;
+      height: 50px;
+      object-fit: cover;
+      background-color: #c18e86;
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-size: 12px;
     }
 
-    .services-grid {
+    .welcome {
+      background-color: #D4AF37;
+      padding: 10px 15px ;
+      border-radius: 50px;
+      margin: 0px 0px 0px 10px;
+    }
+
+    .card-type {
+      font-size: 14px;
+      text-align: right;
+      margin: 0px 0px 0px 200px;
+    }
+
+    .card-number {
+      margin-top: 30px;
+      font-size: 22px;
+      letter-spacing: 2px;
+      margin-left: 170px;
+    }
+
+    .bank-name {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .carousel-dots {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.active {
+      background-color: #fff;
+    }
+
+/* Wrapper for layout */
+.main-dashboard-content {
+  position: relative;
+  padding: 20px;
+}
+
+/* Transactions History (now in normal flow) */
+.expiry-reminder {
+  background-color: #000;
+  border-radius: 10px;
+  width: 580px;
+  color: #ccc;
+  margin-top: 20px;
+  margin-right: 40px;
+  margin-left: 15px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+/* Expiry Reminder - now floating top-right */
+.transactions-history {
+  position:absolute;
+  top: 20px;
+  right: 30px;
+  background-color: #000;
+  border-radius: 10px;
+  padding: 15px;
+  padding-bottom: 290px;
+  width: 350px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  z-index: 100;
+  margin-right: 50px;
+}
+
+/* Headings */
+.expiry-reminder h3{
+  color: #D4AF37;
+  margin-top: 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+  text-align: center;
+  position: relative;
+  padding-top: 10px;
+}
+.transactions-history h3 {
+  color: #D4AF37;
+  margin-top: 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+  text-align: center;
+  position: relative;
+}
+
+/* Reminder entry */
+.reminder-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Filters in history */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 13px;
+  color: #ccc;
+  border-bottom: 1px solid #333;
+}
+
+/* Transaction list */
+.transaction-list {
+  margin-top: 10px;
+}
+
+/* Each transaction */
+.transaction-entry {
+  background-color: #1c1c1c;
+  margin-bottom: 5px;
+  padding: 8px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+
+    .section-title {
+      text-align: center;
+      color: #D4AF37;
+      margin-top: 40px;
+      font-size: 24px;
+    }
+
+    .service-sections {
+      background-color: transparent;
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-top: 20px;
+      margin-left: 10px;
     }
 
-    .service-box {
-      height: 120px;
+    .service-category {
+      background-color: #000;
+      padding: 15px;
       border-radius: 10px;
-      border: 1px solid #ffd700;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.3s ease, filter 0.3s ease;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
     }
 
-    .service-box:hover {
-      transform: scale(1.05);
+    .service-category h3 {
+      color: #D4AF37;
+      margin-bottom: 10px;
+    }
+
+    .icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .icons img {
+      height: 35px;
+      width: 35px;
+      object-fit: contain;
+      border-radius: 5px;
+      background-color: #fff;
+      padding: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .icons img:hover {
+      transform: scale(1.1);
       filter: brightness(1.2);
     }
 
-    h2 {
-      margin-bottom: 1rem;
-      text-align: center;
+    @media (max-width: 768px) {
+      .top-widgets {
+        flex-direction: column;
+      }
+
+      .filters {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .transaction-entry {
+        flex-direction: column;
+        gap: 5px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Profile Top-Left -->
-    <div class="profile" onclick="goToProfile()">
-      <img id="userImage" src="img/default-avatar.png" alt="Profile" />
-      <span id="username">Welcome, User</span>
+  <div class="home-container">
+    <!-- Card Carousel -->
+    <div class="card-carousel">
+      <div class="card">
+        <div class="card-header">
+          <div class="profile-pic">profile picture</div>
+          <div class="welcome">Welcome, Username</div>
+          <div class="card-type">type of card<br/>(mastercard etc)</div>
+        </div>
+        <div class="card-number">**** **** **** ***7</div>
+        <div class="bank-name">Bank name</div>
+      </div>
+      <div class="carousel-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
     </div>
 
-    <!-- Card Carousel -->
-    <div class="carousel" id="cardCarousel"></div>
+    <!-- Reminder + Transactions -->
+   
+      <div class="expiry-reminder">
+        <h3>Expiry Reminder</h3>
+        <div class="reminder-entry">
+          <div>Name of service</div>
+          <div>Price</div>
+        </div>
+        <div class="reminder-entry">
+          <div>Expiry date</div>
+        </div>
+        <div class="reminder-entry">
+          <div>Name of service</div>
+          <div>Price</div>
+        </div>
+        <div class="reminder-entry">
+          <div>Expiry date</div>
+        </div>
+      </div>
 
-    <!-- Services Section -->
-    <h2>Available Services</h2>
-    <div class="services-grid">
-      <div class="service-box" style="background-image: url('images/spotify.png');"></div>
-      <div class="service-box" style="background-image: url('images/netflix.png');"></div>
-      <div class="service-box" style="background-image: url('images/prime.png');"></div>
-      <div class="service-box" style="background-image: url('images/youtube.png');"></div>
-      <div class="service-box" style="background-image: url('images/snapchat.png');"></div>
-      <div class="service-box" style="background-image: url('images/decoder.png');"></div>
-      <div class="service-box" style="background-image: url('images/airtime.png');"></div>
-      <div class="service-box" style="background-image: url('images/data.png');"></div>
+      <div class="transactions-history">
+        <h3>Transactions History</h3>
+        <div class="filters">
+          <div>Category ▼</div>
+          <div>Current Month ▼</div>
+          <div>total money out in that month</div>
+        </div>
+        <div class="transaction-list">
+          <div class="transaction-entry">
+            <div>Service</div>
+            <div>Name of service</div>
+            <div>Date and Time paid</div>
+            <div>Price</div>
+            <div>Status</div>
+          </div>
+          <!-- Duplicate as needed -->
+        </div>
+      </div>
+
+    <!-- Services -->
+    <h2 class="section-title">Service Payments Hub</h2>
+    <div class="service-sections">
+      <div class="service-category">
+        <h3>Streaming</h3>
+        <div class="icons">
+          <img src="icons/netflix.png" alt="Netflix"/>
+          <img src="icons/hulu.png" alt="Hulu"/>
+          <img src="icons/apple.png" alt="Apple"/>
+        </div>
+      </div>
+
+      <div class="service-category">
+        <h3>Music</h3>
+        <div class="icons">
+          <img src="icons/spotify.png" alt="Spotify"/>
+          <img src="icons/youtube.png" alt="YouTube Music"/>
+          <img src="icons/audiomack.png" alt="Audiomack"/>
+        </div>
+      </div>
+
+      <div class="service-category">
+        <h3>Productivity</h3>
+        <div class="icons">
+          <img src="icons/canva.png" alt="Canva"/>
+          <img src="icons/chatgpt.png" alt="ChatGPT"/>
+        </div>
+      </div>
+
+      <div class="service-category">
+        <h3>Socials</h3>
+        <div class="icons">
+          <img src="icons/snapchat.png" alt="Snapchat"/>
+          <img src="icons/telegram.png" alt="Telegram"/>
+          <img src="icons/x.png" alt="X"/>
+        </div>
+      </div>
+
+      <div class="service-category">
+        <h3>Airtime/Data</h3>
+        <div class="icons">
+          <img src="icons/mtn.png" alt="MTN"/>
+          <img src="icons/glo.png" alt="Glo"/>
+          <img src="icons/airtel.png" alt="Airtel"/>
+          <img src="icons/9mobile.png" alt="9mobile"/>
+        </div>
+      </div>
+
+      <div class="service-category">
+        <h3>Decoders</h3>
+        <div class="icons">
+          <img src="icons/gotv.png" alt="GoTV"/>
+          <img src="icons/startimes.png" alt="Startimes"/>
+          <img src="icons/dstv.png" alt="DSTV"/>
+        </div>
+      </div>
     </div>
   </div>
-
-  <script>
-    const loggedInUser = {
-      username: "jupiteruser",
-      image: "img/default-avatar.png",
-      cards: [] // Replace with actual card data if any
-    };
-
-    document.getElementById("username").textContent = `Welcome, ${loggedInUser.username}`;
-    document.getElementById("userImage").src = loggedInUser.image;
-
-    const cardCarousel = document.getElementById("cardCarousel");
-
-    if (loggedInUser.cards.length > 0) {
-      loggedInUser.cards.forEach(card => {
-        const cardEl = document.createElement("div");
-        cardEl.className = "card-box";
-        cardEl.innerHTML = `
-          <p>${card.type} - **** ${card.number.slice(-4)}</p>
-          <p>${card.bank}</p>
-        `;
-        cardCarousel.appendChild(cardEl);
-      });
-    } else {
-      const registerBtn = document.createElement("a");
-      registerBtn.href = "/register-card.html";
-      registerBtn.className = "register-card";
-      registerBtn.textContent = "+ Register Card";
-      cardCarousel.appendChild(registerBtn);
-    }
-
-    function goToProfile() {
-      window.location.href = "/profile.html";
-    }
-  </script>
 </body>
 </html>
