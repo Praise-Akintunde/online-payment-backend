@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading Home...</title>
+</head>
+<body>
+  <div id="homeContent">Loading home...</div>
+
+  <script>
+    async function loadHomePage() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        document.getElementById('homeContent').textContent = 'No token found. Please login.';
+        return;
+      }
+
+      try {
+        const response = await fetch('/home', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const html = await response.text();
+
+        if (response.ok) {
+          document.open();
+          document.write(html);
+          document.close();
+        } else {
+          document.getElementById('homeContent').textContent = 'Failed to load home. Redirecting to login...';
+          setTimeout(() => window.location.href = '/login.html', 1500);
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('homeContent').textContent = 'Network error. Try again later.';
+      }
+    }
+
+    loadHomePage();
+  </script>
+</body>
+</html>

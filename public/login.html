@@ -55,22 +55,27 @@
             body: JSON.stringify(data),
           });
 
-          const resultText = await response.text();
+          const dataResponse = await response.json();
 
           messageDiv.style.display = 'block';
 
           if (response.ok) {
             messageDiv.textContent = '✅ Login successful! Redirecting to home...';
             messageDiv.style.color = 'gold';
+            localStorage.setItem('token', dataResponse.token);
+            localStorage.setItem('userId', dataResponse.user.id);
+            localStorage.setItem('userEmail', dataResponse.user.email);
+
 
             setTimeout(() => {
-              window.location.href = '/home';
+              window.location.href = '/homeLoader';
             }, 1500);
           } else {
-            messageDiv.textContent = `❌ Login failed: ${resultText}`;
+            messageDiv.textContent = `❌ Login failed`;
             messageDiv.style.color = 'red';
           }
         } catch (err) {
+          console.log(err)
           messageDiv.style.display = 'block';
           messageDiv.textContent = '⚠️ Network or server error.';
           messageDiv.style.color = 'red';

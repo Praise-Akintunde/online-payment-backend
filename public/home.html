@@ -256,60 +256,69 @@
   <div class="home-container">
     <!-- Card Carousel -->
     <div class="card-carousel">
-      <div class="card">
-        <div class="card-header">
-          <div class="profile-pic">profile picture</div>
-          <div class="welcome">Welcome, Username</div>
-          <div class="card-type">type of card<br/>(mastercard etc)</div>
+      <% if (cards && cards.length > 0) { %>
+        <% cards.forEach((card, index) => { %>
+          <div class="card">
+            <div class="card-header">
+              <div class="profile-pic"><%= user.username.charAt(0).toUpperCase() %></div>
+              <div class="welcome">Welcome, <%= user.username %></div>
+              <div class="card-type"><%= card.card_type %></div>
+            </div>
+            <div class="card-number">**** **** **** <%= card.card_number.slice(-4) %></div>
+            <div class="bank-name"><%= card.bank_name %></div>
+          </div>
+        <% }); %>
+        <div class="carousel-dots">
+          <% cards.forEach((_, index) => { %>
+            <span class="dot <%= index === 0 ? 'active' : '' %>"></span>
+          <% }) %>
         </div>
-        <div class="card-number">**** **** **** ***7</div>
-        <div class="bank-name">Bank name</div>
-      </div>
-      <div class="carousel-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
+      <% } else { %>
+        <p style="color:#ccc;">No cards available</p>
+      <% } %>
     </div>
 
     <!-- Reminder + Transactions -->
-   
-      <div class="expiry-reminder">
-        <h3>Expiry Reminder</h3>
-        <div class="reminder-entry">
-          <div>Name of service</div>
-          <div>Price</div>
-        </div>
-        <div class="reminder-entry">
-          <div>Expiry date</div>
-        </div>
-        <div class="reminder-entry">
-          <div>Name of service</div>
-          <div>Price</div>
-        </div>
-        <div class="reminder-entry">
-          <div>Expiry date</div>
-        </div>
-      </div>
-
-      <div class="transactions-history">
-        <h3>Transactions History</h3>
-        <div class="filters">
-          <div>Category ▼</div>
-          <div>Current Month ▼</div>
-          <div>total money out in that month</div>
-        </div>
-        <div class="transaction-list">
-          <div class="transaction-entry">
-            <div>Service</div>
-            <div>Name of service</div>
-            <div>Date and Time paid</div>
-            <div>Price</div>
-            <div>Status</div>
+    <div class="expiry-reminder">
+      <h3>Expiry Reminder</h3>
+      <% if (reminders && reminders.length > 0) { %>
+        <% reminders.forEach(rem => { %>
+          <div class="reminder-entry">
+            <div><%= rem.service_name %></div>
+            <div><%= rem.price %></div>
           </div>
-          <!-- Duplicate as needed -->
-        </div>
+          <div class="reminder-entry">
+            <div><%= rem.expiry_date %></div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p style="text-align:center; color:#999;">No upcoming expiries</p>
+      <% } %>
+    </div>
+
+    <div class="transactions-history">
+      <h3>Transactions History</h3>
+      <div class="filters">
+        <div>Category ▼</div>
+        <div>Current Month ▼</div>
+        <div>Total: ₦<%= totalSpendingThisMonth %></div>
       </div>
+      <div class="transaction-list">
+        <% if (transactions && transactions.length > 0) { %>
+          <% transactions.forEach(tx => { %>
+            <div class="transaction-entry">
+              <div><%= tx.category %></div>
+              <div><%= tx.service_name %></div>
+              <div><%= tx.date_paid %></div>
+              <div>₦<%= tx.amount %></div>
+              <div><%= tx.status %></div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p style="text-align:center; color:#999;">No recent transactions</p>
+        <% } %>
+      </div>
+    </div>
 
     <!-- Services -->
     <h2 class="section-title">Service Payments Hub</h2>
