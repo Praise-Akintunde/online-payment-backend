@@ -15,7 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Page Routes
 app.use('/', require('./routes/pages/landing'));
-app.use('/home', require('./routes/pages/home'));
+const homeRoutes = require('./routes/pages/home');
+app.use('/', homeRoutes);
 
 // Auth Routes
 app.use('/signup', require('./routes/auth/signup'));
