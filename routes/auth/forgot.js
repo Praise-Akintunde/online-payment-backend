@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const auth = require('../../controllers/AuthController');
+const crypto = require('crypto');
 
-// GET /forgot - render the forgot password page
 router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/forgot.html'));
+  res.redirect('http://localhost:3000/forgot.html');
 });
 
 // POST /forgot - handle reset code generation

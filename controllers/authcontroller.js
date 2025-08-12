@@ -1,3 +1,7 @@
+const crypto = require('crypto');
+const db = require('../config/db'); // or wherever your db connection is
+const { sendResetEmail } = require('../config/mailer');
+
 exports.forgot = (req, res) => {
   const { email } = req.body;
   const code = crypto.randomBytes(3).toString('hex');

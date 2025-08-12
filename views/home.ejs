@@ -1,30 +1,71 @@
-<!-- Welcome Section -->
-<h2>Welcome, <%= user.username.charAt(0).toUpperCase() + user.username.slice(1) %></h2>
- 
-<!-- Cards Section -->
-<h3>Your Cards</h3> 
-<% if (cards && cards.length > 0) { %>
-  <% cards.forEach((card) => { %>
-    <div class="card-box">
-      <p><strong>Type:</strong> <%= card.card_type %></p>
-      <p><strong>Number:</strong> **** **** **** <%= card.card_number.slice(-4) %></p>
-      <p><strong>Bank:</strong> <%= card.bank_name %></p>
-    </div>
-  <% }); %>
-<% } else { %>
-  <p>No cards available</p>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homepage</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
 
-<!-- Expiry Reminder Section -->
-<h3>Expiry Reminders</h3>
-<% if (reminders && reminders.length > 0) { %>
-  <% reminders.forEach(rem => { %>
-    <div class="reminder-box">
-      <p><strong>Service:</strong> <%= rem.service_name %></p>
-      <p><strong>Price:</strong> ₦<%= rem.price %></p>
-      <p><strong>Expires:</strong> <%= rem.expiry_date %></p>
-    </div>
-  <% }); %>
-<% } else { %>
-  <p>No upcoming expiries</p>
-<% } %>
+  <main class="main">
+
+    <!-- Reminder Section -->
+    <section class="reminder">
+      <h2>Reminders</h2>
+      <ul>
+        <% reminders.forEach(reminder => { %>
+          <li><%= reminder.text %> - <%= reminder.date %></li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <!-- Card Carousel Section -->
+    <section class="carousel">
+      <div class="card-container">
+        <% cards.forEach(card => { %>
+          <div class="card">
+            <h3><%= card.name %></h3>
+            <p>Balance: <%= card.balance %></p>
+            <p>Number: **** **** **** <%= card.last4 %></p>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Transaction History Section -->
+    <section class="transactions-history">
+      <h2>Transaction History</h2>
+      <ul>
+        <% transactions.forEach(transaction => { %>
+          <li>
+            <p><strong><%= transaction.title %></strong></p>
+            <p><%= transaction.date %> - ₦<%= transaction.amount %></p>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <!-- Services Section  -->
+    <section class="services">
+      <h2>Our Services</h2>
+      <div class="service-list">
+        <div class="service">
+          <img src="/img/transfer.png" alt="Transfer" />
+          <p>Transfer</p>
+        </div>
+        <div class="service">
+          <img src="/img/deposit.png" alt="Deposit" />
+          <p>Deposit</p>
+        </div>
+        <div class="service">
+          <img src="/img/airtime.png" alt="Airtime" />
+          <p>Airtime</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

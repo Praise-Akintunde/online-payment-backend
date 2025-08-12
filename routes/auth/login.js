@@ -7,10 +7,10 @@ const path = require('path');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Serve login.html on GET /login
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/login.html'));
-});
+// // Serve login.html on GET /login
+// router.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../../public/login.html'));
+// });
 
 router.post('/', (req, res) => {
   const { email, password } = req.body;

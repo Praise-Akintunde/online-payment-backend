@@ -1,3 +1,4 @@
+// mailer.js
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
@@ -8,4 +9,15 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = transporter;
+function sendResetEmail(to, code) {
+  const mailOptions = {
+    from: process.env.MAIL_USER,
+    to,
+    subject: 'Password Reset Code',
+    text: `Your reset code is: ${code}`
+  };
+
+  return transporter.sendMail(mailOptions);
+}
+
+module.exports = { transporter, sendResetEmail };
