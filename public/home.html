@@ -11,32 +11,36 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #111;
       color: #fff;
+      padding: 20px;
     }
 
     .home-container {
-      padding: 20px;
-      max-width: 1200px;
+      max-width: 1600px;
       margin: auto;
+    }
+
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
     .card-carousel {
       background-color: transparent;
-      margin:0px 500px 30px 20px;
-      position: relative;
-      display:grid;
+      max-width: 700px;
     }
 
     .card {
       background-color: #013220;
       border-radius: 15px;
-      padding: 10px ;
-      position: relative;
+      padding: 10px;
       color: #fff;
     }
 
     .card-header {
       display: flex;
-      justify-content: top;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -44,7 +48,6 @@
     .profile-pic {
       width: 40px;
       height: 50px;
-      object-fit: cover;
       background-color: #c18e86;
       padding: 10px 15px;
       border-radius: 50px;
@@ -53,22 +56,22 @@
 
     .welcome {
       background-color: #D4AF37;
-      padding: 10px 15px ;
+      padding: 10px 15px;
       border-radius: 50px;
-      margin: 0px 0px 0px 10px;
+      margin-left: 10px;
     }
 
     .card-type {
       font-size: 14px;
       text-align: right;
-      margin: 0px 0px 0px 200px;
+      margin-left: auto;
     }
 
     .card-number {
       margin-top: 30px;
       font-size: 22px;
       letter-spacing: 2px;
-      margin-left: 170px;
+      text-align: right;
     }
 
     .bank-name {
@@ -94,110 +97,81 @@
       background-color: #fff;
     }
 
-/* Wrapper for layout */
-.main-dashboard-content {
-  position: relative;
-  padding: 20px;
-}
+    .transactions-history {
+      background-color: #000;
+      border-radius: 10px;
+      padding: 15px;
+      width: 350px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
 
-/* Transactions History (now in normal flow) */
-.expiry-reminder {
-  background-color: #000;
-  border-radius: 10px;
-  width: 580px;
-  color: #ccc;
-  margin-top: 20px;
-  margin-right: 40px;
-  margin-left: 15px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-}
+    .transactions-history h3,
+    .expiry-reminder h3 {
+      color: #D4AF37;
+      margin-top: 0;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      text-align: center;
+    }
 
-/* Expiry Reminder - now floating top-right */
-.transactions-history {
-  position:absolute;
-  top: 20px;
-  right: 30px;
-  background-color: #000;
-  border-radius: 10px;
-  padding: 15px;
-  padding-bottom: 290px;
-  width: 350px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-  z-index: 100;
-  margin-right: 50px;
-}
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #ccc;
+      border-bottom: 1px solid #333;
+      padding: 10px 0;
+    }
 
-/* Headings */
-.expiry-reminder h3{
-  color: #D4AF37;
-  margin-top: 0;
-  border-bottom: 1px solid #333;
-  padding-bottom: 10px;
-  text-align: center;
-  position: relative;
-  padding-top: 10px;
-}
-.transactions-history h3 {
-  color: #D4AF37;
-  margin-top: 0;
-  border-bottom: 1px solid #333;
-  padding-bottom: 10px;
-  text-align: center;
-  position: relative;
-}
+    .transaction-list {
+      margin-top: 10px;
+    }
 
-/* Reminder entry */
-.reminder-entry {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 10px;
-  font-size: 14px;
-  color: #ccc;
-}
+    .transaction-entry {
+      background-color: #1c1c1c;
+      margin-bottom: 5px;
+      padding: 8px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 5px;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+    }
 
-/* Filters in history */
-.filters {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  font-size: 13px;
-  color: #ccc;
-  border-bottom: 1px solid #333;
-}
+    .expiry-reminder {
+      background-color: #000;
+      border-radius: 10px;
+      width: 700px;
+      margin-top: 20px;
+      margin-right: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      padding-right: 0px;
+      color: #ccc;
+      
+    }
 
-/* Transaction list */
-.transaction-list {
-  margin-top: 10px;
-}
-
-/* Each transaction */
-.transaction-entry {
-  background-color: #1c1c1c;
-  margin-bottom: 5px;
-  padding: 8px;
-  font-size: 13px;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 5px;
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
-}
-
+    .reminder-entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
 
     .section-title {
       text-align: center;
       color: #D4AF37;
-      margin-top: 40px;
+      margin-top: 60px;
       font-size: 24px;
     }
 
     .service-sections {
       background-color: transparent;
-      position: relative;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 50px;
       margin-top: 20px;
-      margin-left: 10px;
     }
 
     .service-category {
@@ -236,91 +210,86 @@
     }
 
     @media (max-width: 768px) {
-      .top-widgets {
+      .top-section {
         flex-direction: column;
+        align-items: stretch;
       }
 
-      .filters {
-        flex-direction: column;
-        gap: 5px;
+      .expiry-reminder {
+        width: 100%;
       }
 
-      .transaction-entry {
-        flex-direction: column;
-        gap: 5px;
+      .transactions-history {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="home-container">
-    <!-- Card Carousel -->
-    <div class="card-carousel">
-      <% if (cards && cards.length > 0) { %>
-        <% cards.forEach((card, index) => { %>
+
+    <!-- Card Carousel & Transaction History -->
+    <div class="top-section">
+      <!-- Card Carousel -->
+      <div>
+        <div class="card-carousel">
           <div class="card">
             <div class="card-header">
-              <div class="profile-pic"><%= user.username.charAt(0).toUpperCase() %></div>
-              <div class="welcome">Welcome, <%= user.username %></div>
-              <div class="card-type"><%= card.card_type %></div>
+              <div class="profile-pic">J</div>
+              <div class="welcome">Welcome, JohnDoe</div>
+              <div class="card-type">Visa</div>
             </div>
-            <div class="card-number">**** **** **** <%= card.card_number.slice(-4) %></div>
-            <div class="bank-name"><%= card.bank_name %></div>
+            <div class="card-number">**** **** **** 1234</div>
+            <div class="bank-name">Zenith Bank</div>
           </div>
-        <% }); %>
-        <div class="carousel-dots">
-          <% cards.forEach((_, index) => { %>
-            <span class="dot <%= index === 0 ? 'active' : '' %>"></span>
-          <% }) %>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
         </div>
-      <% } else { %>
-        <p style="color:#ccc;">No cards available</p>
-      <% } %>
-    </div>
 
-    <!-- Reminder + Transactions -->
-    <div class="expiry-reminder">
-      <h3>Expiry Reminder</h3>
-      <% if (reminders && reminders.length > 0) { %>
-        <% reminders.forEach(rem => { %>
+        <!-- Expiry Reminder directly under the carousel -->
+        <div class="expiry-reminder">
+          <h3>Expiry Reminder</h3>
           <div class="reminder-entry">
-            <div><%= rem.service_name %></div>
-            <div><%= rem.price %></div>
+            <div>Netflix</div>
+            <div>₦4,500</div>
           </div>
           <div class="reminder-entry">
-            <div><%= rem.expiry_date %></div>
+            <div>2025-09-15</div>
           </div>
-        <% }) %>
-      <% } else { %>
-        <p style="text-align:center; color:#999;">No upcoming expiries</p>
-      <% } %>
-    </div>
-
-    <div class="transactions-history">
-      <h3>Transactions History</h3>
-      <div class="filters">
-        <div>Category ▼</div>
-        <div>Current Month ▼</div>
-        <div>Total: ₦<%= totalSpendingThisMonth %></div>
+        </div>
       </div>
-      <div class="transaction-list">
-        <% if (transactions && transactions.length > 0) { %>
-          <% transactions.forEach(tx => { %>
-            <div class="transaction-entry">
-              <div><%= tx.category %></div>
-              <div><%= tx.service_name %></div>
-              <div><%= tx.date_paid %></div>
-              <div>₦<%= tx.amount %></div>
-              <div><%= tx.status %></div>
-            </div>
-          <% }) %>
-        <% } else { %>
-          <p style="text-align:center; color:#999;">No recent transactions</p>
-        <% } %>
+
+      <!-- Transactions History (aligned right) -->
+      <div class="transactions-history">
+        <h3>Transactions History</h3>
+        <div class="filters">
+          <div>Category ▼</div>
+          <div>Current Month ▼</div>
+          <div>Total: ₦22,000</div>
+        </div>
+        <div class="transaction-list">
+          <div class="transaction-entry">
+            <div>Streaming</div>
+            <div>Netflix</div>
+            <div>2025-08-01</div>
+            <div>₦4,500</div>
+            <div>Paid</div>
+          </div>
+          <div class="transaction-entry">
+            <div>Music</div>
+            <div>Spotify</div>
+            <div>2025-08-03</div>
+            <div>₦1,200</div>
+            <div>Pending</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Services -->
+    <!-- Services Section -->
     <h2 class="section-title">Service Payments Hub</h2>
     <div class="service-sections">
       <div class="service-category">
@@ -331,7 +300,6 @@
           <img src="icons/apple.png" alt="Apple"/>
         </div>
       </div>
-
       <div class="service-category">
         <h3>Music</h3>
         <div class="icons">
@@ -340,7 +308,6 @@
           <img src="icons/audiomack.png" alt="Audiomack"/>
         </div>
       </div>
-
       <div class="service-category">
         <h3>Productivity</h3>
         <div class="icons">
@@ -348,7 +315,6 @@
           <img src="icons/chatgpt.png" alt="ChatGPT"/>
         </div>
       </div>
-
       <div class="service-category">
         <h3>Socials</h3>
         <div class="icons">
@@ -357,7 +323,6 @@
           <img src="icons/x.png" alt="X"/>
         </div>
       </div>
-
       <div class="service-category">
         <h3>Airtime/Data</h3>
         <div class="icons">
@@ -367,7 +332,6 @@
           <img src="icons/9mobile.png" alt="9mobile"/>
         </div>
       </div>
-
       <div class="service-category">
         <h3>Decoders</h3>
         <div class="icons">

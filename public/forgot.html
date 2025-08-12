@@ -123,7 +123,7 @@
         }
 
         try {
-          const res = await fetch('/forgot', {
+          const res = await fetch('http://localhost:5000/forgot', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
@@ -139,10 +139,12 @@
               window.location.href = '/reset.html';
             }, 2500);
           }
-        } catch (error) {
-          msg.innerText = "❌ Failed to send reset code. Please try again.";
-          msg.style.color = "red";
+       } catch (error) {
+        msg.innerText = `❌ Error: ${error.message}`;
+        msg.style.color = "red";
+        console.error("Detailed error:", error);
         }
+
       });
     });
   </script>

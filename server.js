@@ -1,34 +1,48 @@
-require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Page Routes
-app.use('/', require('./routes/pages/landing'));
-const homeRoutes = require('./routes/pages/home');
-app.use('/', homeRoutes);
+// Default route → show landing.html first
+app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'landing.html'));
+});
 
-// Auth Routes
-app.use('/signup', require('./routes/auth/signup'));
-app.use('/login', require('./routes/auth/login'));
-app.use('/logout', require('./routes/auth/logout'));
-app.use('/forgot', require('./routes/auth/forgot'));
-app.use('/reset', require('./routes/auth/reset'));
+// Optional: If you want to make sure direct access to each page works
+app.get('/forgot', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'forgot.html'));
+});
 
-// User Routes
-app.use('/user/profile', require('./routes/auth/profile'));
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+});
 
-// Start Server
+app.get('/homeloader', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'homeloader.html'));
+});
+
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'landing.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/reset', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'reset.html'));
+});
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+});
+
+// Start the frontend server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Jupiter server running at http://localhost:${PORT}`);
+  console.log(`Frontend server running at http://localhost:${PORT}`);
 });
