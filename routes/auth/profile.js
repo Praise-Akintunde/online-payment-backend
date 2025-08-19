@@ -3,8 +3,8 @@ const db = require('../../config/db');
 const authenticateToken = require('../../middlewares/auth');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.redirect('http://localhost:3000/profile.html');
+router.get('/profile', (req, res) => {
+  res.redirect('http://localhost:3000/profile');
 });
 
 // Get logged-in user's profile
@@ -12,7 +12,7 @@ router.get('/', authenticateToken, (req, res) => {
   const userId = req.user.id;
 
   const query = `
-    SELECT username, email, profile_picture, created_at
+    SELECT username, email, profile_picture
     FROM users
     WHERE id = ?
     LIMIT 1

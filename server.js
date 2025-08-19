@@ -23,7 +23,7 @@ app.use('/login', require('./routes/auth/login'));
 app.use('/logout', require('./routes/auth/logout'));
 app.use('/forgot', require('./routes/auth/forgot'));
 app.use('/reset', require('./routes/auth/reset'));
-
+app.use('/profile', require('./routes/auth/profile'));
 // User Routes
 app.use('/user/profile', require('./routes/auth/profile'));
 
